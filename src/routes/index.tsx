@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
 const FILTERS = ["Rating 4.0+", "Pure Veg", "Offers", "Fast Delivery", "Under ₹400"];
 
 function HomePage() {
-  const { q } = Route.useSearch();
+  const { q = "" } = Route.useSearch();
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
 
   const toggle = (f: string) =>
