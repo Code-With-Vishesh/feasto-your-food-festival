@@ -9,7 +9,7 @@ import { categories, offers, restaurants } from "@/data/restaurants";
 import heroFood from "@/assets/hero-food.jpg";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: (s.q as string) ?? "" }),
+  validateSearch: (s: Record<string, unknown>) => ({ q: (s["q"] as string) || undefined }),
   head: () => ({
     meta: [
       { title: "Feasto — Order Food Online from Top Restaurants" },
