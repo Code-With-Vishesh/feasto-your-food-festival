@@ -1,7 +1,6 @@
 import { MapPin, Navigation, Search, X } from "lucide-react";
 import { useState } from "react";
-
-const RECENT = ["Jaipur", "Malviya Nagar, Jaipur", "C Scheme, Jaipur", "Vaishali Nagar, Jaipur"];
+import { JAIPUR_AREAS } from "@/lib/location";
 
 export function LocationModal({
   open,
@@ -14,7 +13,7 @@ export function LocationModal({
 }) {
   const [q, setQ] = useState("");
   if (!open) return null;
-  const filtered = RECENT.filter((r) => r.toLowerCase().includes(q.toLowerCase()));
+  const filtered = JAIPUR_AREAS.filter((r) => r.toLowerCase().includes(q.toLowerCase()));
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-foreground/40 p-4 pt-24" onClick={onClose}>
@@ -23,10 +22,10 @@ export function LocationModal({
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Choose your location"
+        aria-label="Select your location"
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Choose your location</h2>
+          <h2 className="text-lg font-semibold">Select your location</h2>
           <button onClick={onClose} aria-label="Close" className="rounded-full p-1.5 hover:bg-muted">
             <X className="size-5" />
           </button>
@@ -40,17 +39,23 @@ export function LocationModal({
             className="w-full bg-transparent text-sm outline-none"
           />
         </div>
-        <button className="mt-3 flex w-full items-center gap-2.5 rounded-xl border border-primary/30 bg-accent px-3.5 py-3 text-sm font-medium text-primary">
+        <button
+          onClick={() => {
+            onSelect("Jaipur");
+            onClose();
+          }}
+          className="mt-3 flex w-full items-center gap-2.5 rounded-xl border border-primary/30 bg-accent px-3.5 py-3 text-sm font-medium text-primary"
+        >
           <Navigation className="size-4" />
-          Use current location
+          Show all of Jaipur
         </button>
-        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Recent locations</p>
-        <ul className="mt-1 divide-y">
+        <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Popular areas</p>
+        <ul className="mt-1 max-h-72 divide-y overflow-y-auto">
           {filtered.map((loc) => (
             <li key={loc}>
               <button
                 onClick={() => {
-                  onSelect(loc.split(",")[0]);
+                  onSelect(loc);
                   onClose();
                 }}
                 className="flex w-full items-center gap-2.5 py-3 text-left text-sm hover:text-primary"
@@ -60,6 +65,7 @@ export function LocationModal({
               </button>
             </li>
           ))}
+          {filtered.length === 0 && <li className="py-3 text-sm text-muted-foreground">No matching area in Jaipur.</li>}
         </ul>
       </div>
     </div>

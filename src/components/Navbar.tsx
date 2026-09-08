@@ -1,15 +1,26 @@
-import { Link, useNavigate } from "@tanstack/react-router";
-import { MapPin, Search, ShoppingCart, ChevronDown, Home, ClipboardList, User, Tag, HelpCircle, UtensilsCrossed } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import {
+  MapPin,
+  Search,
+  ShoppingCart,
+  ChevronDown,
+  Home,
+  ClipboardList,
+  User,
+  Tag,
+  HelpCircle,
+  UtensilsCrossed,
+} from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
+import { useLocationArea } from "@/lib/location";
 import { LocationModal } from "./LocationModal";
+import { SearchBox } from "./SearchBox";
 
 export function Navbar() {
   const { count, open } = useCart();
+  const { location, setLocation } = useLocationArea();
   const [locOpen, setLocOpen] = useState(false);
-  const [location, setLocation] = useState("Jaipur");
-  const [query, setQuery] = useState("");
-  const navigate = useNavigate();
 
   return (
     <>
@@ -29,15 +40,8 @@ export function Navbar() {
             <ChevronDown className="size-3.5 text-muted-foreground" />
           </button>
 
-          <div className="mx-auto hidden w-full max-w-md items-center gap-2 rounded-full border bg-background px-4 py-2.5 md:flex">
-            <Search className="size-4 text-muted-foreground" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && navigate({ to: "/", search: { q: query } })}
-              placeholder="Search restaurants, dishes & cuisines"
-              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-            />
+          <div className="mx-auto hidden w-full max-w-md md:block">
+            <SearchBox />
           </div>
 
           <nav className="ml-auto hidden items-center gap-5 text-sm font-medium text-muted-foreground lg:flex">
@@ -75,36 +79,41 @@ export function Navbar() {
             {location}
             <ChevronDown className="size-3.5 text-muted-foreground" />
           </button>
-          <div className="flex items-center gap-2 rounded-full border bg-background px-4 py-2.5">
-            <Search className="size-4 text-muted-foreground" />
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && navigate({ to: "/", search: { q: query } })}
-              placeholder="Search restaurants, dishes..."
-              className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-            />
-          </div>
+          <SearchBox placeholder="Search restaurants, dishes..." />
         </div>
       </header>
 
       {/* Mobile bottom nav */}
       <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t bg-card pb-[env(safe-area-inset-bottom)] md:hidden">
-        {[
-          { icon: Home, label: "Home", to: "/" },
-          { icon: Search, label: "Search", to: "/" },
-          { icon: ClipboardList, label: "Orders", to: "/" },
-          { icon: User, label: "Profile", to: "/" },
-        ].map(({ icon: Icon, label, to }) => (
-          <Link
-            key={label}
-            to={to}
-            className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-muted-foreground [&.active]:text-primary"
-          >
-            <Icon className="size-5" />
-            {label}
-          </Link>
-        ))}
+        <Link
+          to="/"
+          className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-muted-foreground [&.active]:text-primary"
+        >
+          <Home className="size-5" />
+          Home
+        </Link>
+        <Link
+          to="/search"
+          search={{ q: "" }}
+          className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-muted-foreground [&.active]:text-primary"
+        >
+          <Search className="size-5" />
+          Search
+        </Link>
+        <Link
+          to="/"
+          className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-muted-foreground"
+        >
+          <ClipboardList className="size-5" />
+          Orders
+        </Link>
+        <Link
+          to="/"
+          className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 text-[11px] font-medium text-muted-foreground"
+        >
+          <User className="size-5" />
+          Profile
+        </Link>
       </nav>
 
       <LocationModal open={locOpen} onClose={() => setLocOpen(false)} onSelect={setLocation} />
