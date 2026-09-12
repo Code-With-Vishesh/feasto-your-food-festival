@@ -1,0 +1,363 @@
+{
+  "project": "Feasto Food Delivery System",
+  "city": "Jaipur",
+  "state": "Rajasthan",
+  "country": "India",
+  "generatedFor": "Demo application data",
+  "note": "This is a curated Jaipur restaurant dataset, not an exhaustive list of every restaurant in Jaipur. Restaurant details such as ratings, review counts and addresses can change and should be re-verified before production use.",
+  "restaurants": [
+    {
+      "id": "jaipur-001",
+      "name": "Govindam Retreat",
+      "cuisine": [
+        "North Indian",
+        "Rajasthani",
+        "Vegetarian"
+      ],
+      "rating": 4.4,
+      "reviewCount": 9114,
+      "priceForTwo": 500,
+      "location": "Gangori Bazaar, Jaipur",
+      "address": "First Floor, All Rajasthan Shilp Gram Udyog, Rajamal Ka Talab Rd, near Govind Dev Ji Temple, Gangori Bazaar, Jaipur, Rajasthan 302002",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": true,
+      "featured": true
+    },
+    {
+      "id": "jaipur-002",
+      "name": "J Brew & Kitchen Rooftop Restaurant",
+      "cuisine": [
+        "North Indian",
+        "Continental",
+        "Cafe"
+      ],
+      "rating": 4.6,
+      "reviewCount": 455,
+      "priceForTwo": 900,
+      "location": "C Scheme, Jaipur",
+      "address": "5, Bhawani Singh Ln, near News 18 Channel, C Scheme, Lalkothi, Jaipur, Rajasthan 302001",
+      "deliveryTime": "25-35 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-003",
+      "name": "Ratnika - A Vegetarian Restaurant",
+      "cuisine": [
+        "Indian",
+        "Rajasthani",
+        "Vegetarian"
+      ],
+      "rating": 4.7,
+      "reviewCount": 636,
+      "priceForTwo": 800,
+      "location": "MI Road, Jaipur",
+      "address": "Ratnawali - A Vegetarian Heritage Hotel, B-12, Mirza Ismail Rd, near Paanch Batti, Jayanti Market, New Colony, Jaipur, Rajasthan 302001",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": true,
+      "featured": true
+    },
+    {
+      "id": "jaipur-004",
+      "name": "Suvarna Mahal",
+      "cuisine": [
+        "North Indian",
+        "Rajasthani",
+        "Fine Dining"
+      ],
+      "rating": 4.7,
+      "reviewCount": 3621,
+      "priceForTwo": 8000,
+      "location": "Rambagh, Jaipur",
+      "address": "Rambagh Palace, Bhawani Singh Rd, Rambagh, Jaipur, Rajasthan 302015",
+      "deliveryTime": "40-50 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-005",
+      "name": "Marble Arch",
+      "cuisine": [
+        "North Indian",
+        "International"
+      ],
+      "rating": 4.7,
+      "reviewCount": 260,
+      "priceForTwo": 3500,
+      "location": "Civil Lines, Jaipur",
+      "address": "Jai Mahal Palace, Jacob Rd, near Science Park, Civil Lines, Jaipur, Rajasthan 302006",
+      "deliveryTime": "35-45 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-006",
+      "name": "Peacock Restaurant",
+      "cuisine": [
+        "North Indian",
+        "Italian",
+        "Chinese"
+      ],
+      "rating": 4.4,
+      "reviewCount": 3625,
+      "priceForTwo": 1000,
+      "location": "Hathroi Fort, Jaipur",
+      "address": "51, Hathroi Fort, Hari Kishan Somani Marg, near Native Cocktail Bar, Ajmer Rd, Jaipur, Rajasthan 302001",
+      "deliveryTime": "25-35 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-007",
+      "name": "Dragon House",
+      "cuisine": [
+        "Chinese",
+        "Asian"
+      ],
+      "rating": 4.4,
+      "reviewCount": 877,
+      "priceForTwo": 1400,
+      "location": "MI Road, Jaipur",
+      "address": "Mirza Ismail Rd, Khasa Kothi Circle, Jaipur, Rajasthan 302001",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": false
+    },
+    {
+      "id": "jaipur-008",
+      "name": "Kalyan Restaurant & Bar",
+      "cuisine": [
+        "North Indian",
+        "Rajasthani",
+        "Continental"
+      ],
+      "rating": 4.5,
+      "reviewCount": 4436,
+      "priceForTwo": 900,
+      "location": "Hathroi, Jaipur",
+      "address": "59 Hathroi Fort, Hari Kishan Somani Marg, Ajmer Rd, Jaipur, Rajasthan 302001",
+      "deliveryTime": "25-35 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-009",
+      "name": "Nouba Restaurant & Rooftop Lounge",
+      "cuisine": [
+        "North Indian",
+        "Continental",
+        "Asian"
+      ],
+      "rating": 4.5,
+      "reviewCount": 752,
+      "priceForTwo": 1400,
+      "location": "C Scheme, Jaipur",
+      "address": "4th Floor, C54-A, Sarojini Marg, C Scheme, Ashok Nagar, Jaipur, Rajasthan 302001",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": false
+    },
+    {
+      "id": "jaipur-010",
+      "name": "Handi Restaurant",
+      "cuisine": [
+        "North Indian",
+        "Mughlai",
+        "Rajasthani"
+      ],
+      "rating": 4.1,
+      "reviewCount": 12938,
+      "priceForTwo": 800,
+      "location": "C Scheme, Jaipur",
+      "address": "Mirza Ismail Rd, opposite GPO, C Scheme, Ashok Nagar, Jaipur, Rajasthan 302001",
+      "deliveryTime": "25-35 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-011",
+      "name": "Brewlicious Rooftop Bar Restaurant",
+      "cuisine": [
+        "North Indian",
+        "Continental",
+        "Cafe"
+      ],
+      "rating": 4.8,
+      "reviewCount": 3437,
+      "priceForTwo": 1200,
+      "location": "Hathroi, Jaipur",
+      "address": "10th Floor, Gadi 5, Ajmer Rd, near Kalyan Jewellers, Hathroi, Jaipur, Rajasthan 302006",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-012",
+      "name": "Skyfall Restaurant",
+      "cuisine": [
+        "North Indian",
+        "Continental",
+        "Asian"
+      ],
+      "rating": 4.3,
+      "reviewCount": 6557,
+      "priceForTwo": 1400,
+      "location": "Bapu Nagar, Jaipur",
+      "address": "5th Floor, Ridhi Tower, SB 57, Tonk Rd, opposite Sawai Mansingh Stadium, Bapu Nagar, Jaipur, Rajasthan 302015",
+      "deliveryTime": "30-45 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-013",
+      "name": "Steam",
+      "cuisine": [
+        "North Indian",
+        "International",
+        "Fine Dining"
+      ],
+      "rating": 4.5,
+      "reviewCount": 1469,
+      "priceForTwo": 3000,
+      "location": "Rambagh, Jaipur",
+      "address": "Bhawani Singh Rd, Rambagh, Jaipur, Rajasthan 302015",
+      "deliveryTime": "35-45 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": false
+    },
+    {
+      "id": "jaipur-014",
+      "name": "Thali And More",
+      "cuisine": [
+        "Rajasthani",
+        "North Indian",
+        "Vegetarian"
+      ],
+      "rating": 4.4,
+      "reviewCount": 8929,
+      "priceForTwo": 700,
+      "location": "C Scheme, Jaipur",
+      "address": "1st Floor, Plot No. C46, Sarojini Marg, C Scheme, Ashok Nagar, Jaipur, Rajasthan 302001",
+      "deliveryTime": "25-35 min",
+      "isOpen": true,
+      "isPureVeg": true,
+      "featured": true
+    },
+    {
+      "id": "jaipur-015",
+      "name": "Topaz & Sangria",
+      "cuisine": [
+        "North Indian",
+        "Continental"
+      ],
+      "rating": 4.6,
+      "reviewCount": 3567,
+      "priceForTwo": 1200,
+      "location": "MI Road, Jaipur",
+      "address": "Hotel Natraj, Ganpati Plaza, Motilal Atal Rd, Jaipur, Rajasthan 302001",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": false
+    },
+    {
+      "id": "jaipur-016",
+      "name": "Monarch Restaurant",
+      "cuisine": [
+        "Indian",
+        "Multi-Cuisine"
+      ],
+      "rating": 4.5,
+      "reviewCount": 590,
+      "priceForTwo": 1500,
+      "location": "Bais Godam, Jaipur",
+      "address": "Holiday Inn, Sardar Patel Marg, Shivaji Nagar, Bais Godam, Jaipur, Rajasthan 302001",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": false
+    },
+    {
+      "id": "jaipur-017",
+      "name": "Rustic - Inspired Kitchen",
+      "cuisine": [
+        "North Indian",
+        "Continental"
+      ],
+      "rating": 4.8,
+      "reviewCount": 1442,
+      "priceForTwo": 1200,
+      "location": "C Scheme, Jaipur",
+      "address": "G-3, Ground Floor, UKMS, AURUM, Tilak Marg, near CBI Office, C Scheme, Jaipur, Rajasthan 302005",
+      "deliveryTime": "25-35 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-018",
+      "name": "1135 AD",
+      "cuisine": [
+        "North Indian",
+        "Rajasthani",
+        "Fine Dining"
+      ],
+      "rating": 4.3,
+      "reviewCount": 1867,
+      "priceForTwo": 3500,
+      "location": "Amber, Jaipur",
+      "address": "Amber Palace, Jaleb Chowk, Devisinghpura, Jaipur, Rajasthan 302028",
+      "deliveryTime": "40-50 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    },
+    {
+      "id": "jaipur-019",
+      "name": "The CaveLand Restaurant",
+      "cuisine": [
+        "Indian",
+        "Vegetarian"
+      ],
+      "rating": 4.6,
+      "reviewCount": 1081,
+      "priceForTwo": 900,
+      "location": "Sitapura, Jaipur",
+      "address": "Hotel Gitanjali, Tonk Rd, near EPIP India Gate, Sitapura Industrial Area, Sitapura, Jaipur, Rajasthan 302033",
+      "deliveryTime": "30-40 min",
+      "isOpen": true,
+      "isPureVeg": true,
+      "featured": false
+    },
+    {
+      "id": "jaipur-020",
+      "name": "Okra",
+      "cuisine": [
+        "North Indian",
+        "International"
+      ],
+      "rating": 4.3,
+      "reviewCount": 1045,
+      "priceForTwo": 2200,
+      "location": "Jawahar Circle, Jaipur",
+      "address": "Near Ashram Marg, Jawahar Circle, Jaipur, Rajasthan 302015",
+      "deliveryTime": "35-45 min",
+      "isOpen": true,
+      "isPureVeg": false,
+      "featured": true
+    }
+  ]
+}
