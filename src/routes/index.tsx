@@ -10,7 +10,8 @@ import { getRestaurants, searchRestaurants, sortRestaurants } from "@/services/r
 import heroFood from "@/assets/hero-food.jpg";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: (s["q"] as string) || undefined }),
+  validateSearch: (s: Record<string, unknown>): { q?: string } =>
+    s["q"] ? { q: String(s["q"]) } : {},
   head: () => ({
     meta: [
       { title: "Feasto — Order Food Online from Top Restaurants" },
