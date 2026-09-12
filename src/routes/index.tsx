@@ -5,11 +5,13 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { categories, offers, restaurants } from "@/data/restaurants";
+import { categories, offers } from "@/data/images";
+import { getRestaurants, searchRestaurants, sortRestaurants } from "@/services/restaurantService";
 import heroFood from "@/assets/hero-food.jpg";
 
 export const Route = createFileRoute("/")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: (s["q"] as string) || undefined }),
+  validateSearch: (s: Record<string, unknown>): { q?: string } =>
+    s["q"] ? { q: String(s["q"]) } : {},
   head: () => ({
     meta: [
       { title: "Feasto — Order Food Online from Top Restaurants" },
@@ -53,18 +55,12 @@ function HomePage() {
     setActiveFilters((prev) => (prev.includes(f) ? prev.filter((x) => x !== f) : [...prev, f]));
 
   const filtered = useMemo(() => {
-    let list = restaurants;
-    const query = q.trim().toLowerCase();
-    if (query) {
-      list = list.filter(
-        (r) => r.name.toLowerCase().includes(query) || r.cuisines.some((c) => c.toLowerCase().includes(query))
-      );
-    }
-    if (activeFilters.includes("Rating 4.0+")) list = list.filter((r) => r.rating >= 4.0);
-    if (activeFilters.includes("Pure Veg")) list = list.filter((r) => r.pureVeg);
-    if (activeFilters.includes("Offers")) list = list.filter((r) => r.offer);
-    if (activeFilters.includes("Fast Delivery")) list = list.filter((r) => parseInt(r.time) <= 25);
-    if (activeFilters.includes("Under ₹400")) list = list.filter((r) => r.priceForTwo <= 400);
+    let list = q.trim() ? searchRestaurants(q) : sortRestaurants(getRestaurants(), "recommended");
+    if (activeFilters.includes("Rating 4.0+")) list = list.filter((r) => (r.rating ?? 0) >= 4.0);
+    if (activeFilters.includes("Pure Veg")) list = list.filter((r) => r.isVegetarian === true);
+    if (activeFilters.includes("Offers")) list = list.filter((r) => r.offers.length > 0);
+    if (activeFilters.includes("Fast Delivery")) list = list.filter((r) => r.deliveryMinutes <= 30);
+    if (activeFilters.includes("Under ₹400")) list = list.filter((r) => (r.priceForTwo ?? Infinity) <= 400);
     return list;
   }, [q, activeFilters]);
 

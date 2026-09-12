@@ -1,7 +1,7 @@
 import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
-import { offers } from "@/data/restaurants";
+import { offers } from "@/data/images";
 
 export function CartDrawer() {
   const { items, isOpen, close, setQty, clear, subtotal, count } = useCart();
@@ -56,7 +56,7 @@ export function CartDrawer() {
         ) : (
           <>
             <div className="flex-1 overflow-y-auto px-5 py-4">
-              <p className="mb-3 text-sm font-medium text-muted-foreground">{items[0].restaurantName}</p>
+              <p className="mb-3 text-sm font-medium text-muted-foreground">{items[0]?.restaurantName}</p>
               <ul className="space-y-4">
                 {items.map((i) => (
                   <li key={i.id} className="flex items-center gap-3">

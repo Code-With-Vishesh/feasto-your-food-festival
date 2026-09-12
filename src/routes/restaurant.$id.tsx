@@ -1,17 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, BadgePercent, Clock, Star } from "lucide-react";
+import { ArrowLeft, BadgePercent, Clock, MapPin, Star } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
-import { restaurants, type MenuItem, type Restaurant } from "@/data/restaurants";
+import { display, getRestaurantById, type Restaurant } from "@/services/restaurantService";
+import { getDemoMenu, type MenuItem } from "@/data/demoMenu";
 
 export const Route = createFileRoute("/restaurant/$id")({
   head: ({ params }) => {
-    const r = restaurants.find((x) => x.id === params.id);
+    const r = getRestaurantById(params.id);
     const title = r ? `${r.name} — Order Online | Feasto` : "Restaurant | Feasto";
     const desc = r
-      ? `Order ${r.cuisines.join(", ")} from ${r.name} on Feasto. Rated ${r.rating}, delivery in ${r.time}.`
+      ? `Order ${r.cuisines.join(", ")} from ${r.name} in ${r.area}, ${r.city} on Feasto.`
       : "Order food online on Feasto.";
     return {
       meta: [
@@ -27,15 +28,19 @@ export const Route = createFileRoute("/restaurant/$id")({
     };
   },
   component: RestaurantPage,
-  notFoundComponent: () => (
+  notFoundComponent: NotFound,
+});
+
+function NotFound() {
+  return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-3">
       <h1 className="text-2xl font-bold">Restaurant not found</h1>
       <Link to="/" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
         Back to Feasto
       </Link>
     </div>
-  ),
-});
+  );
+}
 
 function VegBadge({ veg }: { veg: boolean }) {
   return (
@@ -98,18 +103,11 @@ function MenuItemRow({ item, restaurant }: { item: MenuItem; restaurant: Restaur
 
 function RestaurantPage() {
   const { id } = Route.useParams();
-  const restaurant = restaurants.find((r) => r.id === id);
+  const restaurant = getRestaurantById(id);
 
-  if (!restaurant) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-3">
-        <h1 className="text-2xl font-bold">Restaurant not found</h1>
-        <Link to="/" className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
-          Back to Feasto
-        </Link>
-      </div>
-    );
-  }
+  if (!restaurant) return <NotFound />;
+
+  const menu = getDemoMenu(restaurant);
 
   return (
     <div className="min-h-screen">
@@ -121,7 +119,6 @@ function RestaurantPage() {
           <ArrowLeft className="size-4" /> Back to restaurants
         </Link>
 
-        {/* Hero */}
         <div className="mt-4 overflow-hidden rounded-3xl border">
           <img src={restaurant.image} alt={restaurant.name} width={800} height={600} className="h-52 w-full object-cover sm:h-72" />
         </div>
@@ -129,19 +126,27 @@ function RestaurantPage() {
         <div className="mt-5 flex flex-wrap items-start justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold sm:text-3xl">{restaurant.name}</h1>
-            <p className="mt-1 text-sm text-muted-foreground">{restaurant.cuisines.join(", ")}</p>
-            <p className="mt-0.5 text-sm text-muted-foreground">{restaurant.area}</p>
+            <p className="mt-1 text-sm text-muted-foreground">{display.cuisines(restaurant)}</p>
+            <p className="mt-0.5 flex items-center gap-1 text-sm text-muted-foreground">
+              <MapPin className="size-3.5" /> {display.address(restaurant)}
+            </p>
+            <p className="mt-0.5 text-sm text-muted-foreground">{display.price(restaurant)}</p>
           </div>
           <div className="flex items-center gap-4 rounded-2xl border p-3.5">
             <div className="text-center">
-              <span className="flex items-center gap-1 rounded-md bg-rating px-2 py-1 text-sm font-bold text-rating-foreground">
-                {restaurant.rating.toFixed(1)} <Star className="size-3.5 fill-current" />
+              <span
+                className={`flex items-center gap-1 rounded-md px-2 py-1 text-sm font-bold ${
+                  restaurant.rating != null ? "bg-rating text-rating-foreground" : "border text-muted-foreground"
+                }`}
+              >
+                {display.rating(restaurant)}
+                {restaurant.rating != null && <Star className="size-3.5 fill-current" />}
               </span>
-              <p className="mt-1 text-xs text-muted-foreground">{restaurant.reviews} reviews</p>
+              <p className="mt-1 text-xs text-muted-foreground">{display.reviews(restaurant)}</p>
             </div>
             <div className="h-10 w-px bg-border" />
             <div className="flex items-center gap-1.5 text-sm font-medium">
-              <Clock className="size-4 text-primary" /> {restaurant.time}
+              <Clock className="size-4 text-primary" /> {restaurant.deliveryTime}
             </div>
           </div>
         </div>
@@ -153,10 +158,12 @@ function RestaurantPage() {
           </div>
         )}
 
-        {/* Menu */}
         <div className="mt-8">
           <h2 className="text-xl font-bold">Menu</h2>
-          {restaurant.menu.map((section) => (
+          <p className="mt-1 text-xs text-muted-foreground">
+            Sample menu for this demo — dishes and prices are illustrative, not the restaurant's actual menu.
+          </p>
+          {menu.map((section) => (
             <section key={section.title} className="mt-6">
               <h3 className="text-base font-bold uppercase tracking-wide text-muted-foreground">{section.title}</h3>
               <div className="mt-2 rounded-2xl border bg-card px-5">
