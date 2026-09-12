@@ -1,4 +1,5 @@
 import dataset from "@/data/feasto-jaipur-restaurants.json";
+import curated from "@/data/jaipur-curated.json";
 import { images } from "@/data/images";
 
 export interface RawRestaurant {
@@ -152,7 +153,70 @@ export function normalizeRestaurant(raw: RawRestaurant): Restaurant {
   };
 }
 
-const ALL: Restaurant[] = (dataset.restaurants as unknown as RawRestaurant[]).map(normalizeRestaurant);
+/* ---------- curated Jaipur dataset (richer, verified fields) ---------- */
+
+interface CuratedRestaurant {
+  id: string;
+  name: string;
+  cuisine: string[];
+  rating: number;
+  reviewCount: number;
+  priceForTwo: number;
+  location: string;
+  address: string;
+  deliveryTime: string;
+  isOpen: boolean;
+  isPureVeg: boolean;
+  featured: boolean;
+}
+
+function normalizeCurated(raw: CuratedRestaurant): Restaurant {
+  const h = hash(raw.id);
+  const text = `${raw.name} ${raw.cuisine.join(" ")}`.toLowerCase();
+  const offers = h % 5 < 2 ? [DEMO_OFFERS[h % DEMO_OFFERS.length]!] : [];
+  const minutes = parseInt(raw.deliveryTime, 10) || 30;
+
+  return {
+    id: raw.id,
+    name: raw.name,
+    city: "Jaipur",
+    area: raw.location.replace(/,\s*Jaipur$/i, ""),
+    rating: raw.rating,
+    reviewCount: raw.reviewCount,
+    priceRange: raw.priceForTwo >= 2000 ? "₹₹₹₹" : raw.priceForTwo >= 1000 ? "₹₹₹" : raw.priceForTwo >= 500 ? "₹₹" : "₹",
+    priceForTwo: raw.priceForTwo,
+    cuisines: raw.cuisine.slice(0, 3),
+    knownFor: raw.cuisine.join(", "),
+    isVegetarian: raw.isPureVeg,
+    deliveryAvailable: raw.isOpen,
+    diningAvailable: true,
+    nightlife: null,
+    offers,
+    offer: offers[0] ?? null,
+    address: raw.address,
+    phone: null,
+    openingHours: null,
+    deliveryMinutes: minutes,
+    deliveryTime: raw.deliveryTime,
+    image: pickImage(text, raw.id),
+    hasRealMenu: false,
+    source: "curated-jaipur-dataset",
+  };
+}
+
+const CURATED: Restaurant[] = (curated.restaurants as CuratedRestaurant[]).map(normalizeCurated);
+const CURATED_NAMES = new Set(CURATED.map((r) => r.name.toLowerCase()));
+
+const ALL: Restaurant[] = [
+  ...CURATED,
+  ...(dataset.restaurants as unknown as RawRestaurant[])
+    .map(normalizeRestaurant)
+    .filter((r) => !CURATED_NAMES.has(r.name.toLowerCase())),
+];
+
+export function getFeaturedRestaurants(limit = 8) {
+  return CURATED.slice(0, limit);
+}
 
 /* ---------- service API ---------- */
 

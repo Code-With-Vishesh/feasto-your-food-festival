@@ -1,7 +1,7 @@
 import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
-import { offers } from "@/data/restaurants";
+import { offers } from "@/data/images";
 
 export function CartDrawer() {
   const { items, isOpen, close, setQty, clear, subtotal, count } = useCart();
