@@ -21,6 +21,8 @@ interface CartContextValue {
   remove: (id: string) => void;
   setQty: (id: string, qty: number) => void;
   clear: () => void;
+  coupon: string | null;
+  setCoupon: (code: string | null) => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -28,6 +30,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [coupon, setCoupon] = useState<string | null>(null);
 
   useEffect(() => {
     try {
@@ -67,8 +70,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       clear: () => setItems([]),
       count: items.reduce((s, i) => s + i.qty, 0),
       subtotal: items.reduce((s, i) => s + i.qty * i.price, 0),
+      coupon,
+      setCoupon,
     };
-  }, [items, isOpen]);
+  }, [items, isOpen, coupon]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
